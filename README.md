@@ -40,4 +40,16 @@ ensures a class has only one instance, and provides a global point of access to 
 
 经过JIT优化的程序，2 3 的顺序是不保证的，有可能就是132， 当线程A走到3时，实例已经不为空，但是变量还没有初始化，所以在线程B进行第一步判空的时候，直接返回了，但是却没有初始化，导致报错。而**Volatile**关键字的含义是：多线程不保存变量副本，直接从内存中取；不允许优化
 
+**优雅版**
+
+```
+public static class SingletonHolder{
+	private static Singleton instance;
+	public Singleton getInstance(){
+		return new instance();
+	}
+}
+```
+主要目的是在需要的时候在初始化实例，延迟初始化
+
 
